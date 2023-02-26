@@ -2,6 +2,7 @@ package com.itheima.reggie.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.itheima.reggie.common.BaseContext;
 import com.itheima.reggie.common.Result;
 import com.itheima.reggie.entity.Employee;
 import com.itheima.reggie.service.EmployeeService;
@@ -27,10 +28,11 @@ public class EmployeeController {
 
     /**
      * 根据id查询 employee
+     *
      * @param id
      * @return
      */
-    @GetMapping("{/id}")
+    @GetMapping("/{id}")
     public Result<Employee> getById(@PathVariable Long id) {
         Employee emplo = employeeService.getById(id);
         return Result.success(emplo);
@@ -103,11 +105,8 @@ public class EmployeeController {
      **/
     @PostMapping
     public Result<String> addEmployee(HttpServletRequest request, @RequestBody Employee employee) {
+        // 设置默认密码 :  123456
         employee.setPassword(DigestUtils.md5DigestAsHex(AAAConstans.DEFAULT_PASS.getBytes()));
-        employee.setCreateTime(LocalDateTime.now());
-        employee.setUpdateTime(LocalDateTime.now());
-        employee.setCreateUser((Long) request.getSession().getAttribute("employee"));
-        employee.setUpdateUser((Long) request.getSession().getAttribute("employee"));
 
         employeeService.save(employee);
 
@@ -151,11 +150,9 @@ public class EmployeeController {
      * @return
      */
     @PutMapping
-    public Result<String> update(HttpServletRequest request,
-                                 @RequestBody Employee emplyee) {
-        Long empId = (Long) request.getSession().getAttribute("employee");
-        emplyee.setUpdateTime(LocalDateTime.now());
-        emplyee.setUpdateUser(empId);
+    public Result<String> update(HttpServletRequest request, @RequestBody Employee emplyee) {
+
+
         employeeService.updateById(emplyee);
         return Result.success("更改成功");
     }
