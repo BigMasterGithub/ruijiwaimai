@@ -26,6 +26,17 @@ public class EmployeeController {
     private EmployeeService employeeService;
 
     /**
+     * 根据id查询 employee
+     * @param id
+     * @return
+     */
+    @GetMapping("{/id}")
+    public Result<Employee> getById(@PathVariable Long id) {
+        Employee emplo = employeeService.getById(id);
+        return Result.success(emplo);
+    }
+
+    /**
      * 员工登录
      *
      * @param request
@@ -107,6 +118,7 @@ public class EmployeeController {
     /**
      * 分页查询
      * Page类是Mybatis提供的
+     *
      * @Return: com.itheima.reggie.common.Result<com.baomidou.mybatisplus.extension.plugins.pagination.Page < com.itheima.reggie.entity.Employee>>
      **/
     @GetMapping("/page")
@@ -133,6 +145,7 @@ public class EmployeeController {
 
     /**
      * 根据 id 修改员工信息
+     *
      * @param request
      * @param emplyee
      * @return
