@@ -38,25 +38,30 @@ public class LoginCheckFilter implements Filter {
         String requestURI = request.getRequestURI();
         StringBuffer requestURL = request.getRequestURL();
 
-        log.info("<--- remoteAddr == {}", remoteAddr);
+   /*     log.info("<--- remoteAddr == {}", remoteAddr);
         log.info("pathInfo : {}", pathInfo);
         log.info("requestURI : {}", requestURI);
-        log.info("requestURL : {}  --->", requestURL);
+        log.info("requestURL : {}  --->", requestURL);*/
 
-        // 定义不需要 拦截的路径
-        String[] urls = new String[]{"/employee/login", "/employee/logout", "/backend/**", "/front"};
+        // 定义 放行的路径
+        String[] urls = new String[]{"/employee/login",
+                "/employee/logout",
+                "/backend/**",
+                "/front"  ,
+                "/common/**"
+        };
 
         boolean check = check(urls, requestURI);
         // 不需要拦截,直接放行
         if (check) {
-            log.info("本次请求 {} 不需要处理",requestURI);
+//            log.info("本次请求 {} 不需要处理",requestURI);
             filterChain.doFilter(request, response);
             return;
         }
         // 需要拦截的页面进行 校验处理
         if (request.getSession().getAttribute("employee") != null) {
             Long id = (Long) request.getSession().getAttribute("employee");
-            log.info("用户已登录,用户id为:{}", id);
+//            log.info("用户已登录,用户id为:{}", id);
 
             BaseContext.setCurrentId(id);
 
@@ -64,7 +69,7 @@ public class LoginCheckFilter implements Filter {
             return;
         }
 
-        log.info("用户未登录");
+//        log.info("用户未登录");
         response.getWriter().write(JSON.toJSONString(Result.error("not_login")));
 
     }
