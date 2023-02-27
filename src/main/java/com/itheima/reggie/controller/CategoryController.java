@@ -17,6 +17,7 @@ import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * @author 张壮
@@ -35,10 +36,9 @@ public class CategoryController {
     public SetmealService setmealService;
 
 
-
     @PutMapping
-    public Result<String> update(@RequestBody Category category){
-        log.info("修改分类信息 : {}",category);
+    public Result<String> update(@RequestBody Category category) {
+        log.info("修改分类信息 : {}", category);
         categoryService.updateById(category);
         return Result.success("修改成功!");
     }
@@ -46,6 +46,7 @@ public class CategoryController {
 
     /**
      * 根据 id 删除,注意当前id下有商品时,不能删除
+     *
      * @param id
      * @return
      */
@@ -61,6 +62,7 @@ public class CategoryController {
 
     /**
      * 增加
+     *
      * @param category
      * @return
      */
@@ -72,6 +74,7 @@ public class CategoryController {
 
         return Result.success("新增分类成功!");
     }
+
     /**
      * 分页查询
      *
@@ -97,5 +100,16 @@ public class CategoryController {
 
         return Result.success(pageInfo);
     }
-}
 
+    @GetMapping("/list")
+    public Result<List<Category>> list(Category category) {
+        LambdaQueryWrapper<Category> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(category.getType() != null, Category::getType, category.getType());
+
+        queryWrapper.orderByAsc(Category::getSort).orderByDesc(Category::getUpdateTime);
+        List<Category> list = categoryService.list(queryWrapper);
+
+
+        return Result.success(list);
+    }
+}
