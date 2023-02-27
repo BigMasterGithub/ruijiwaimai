@@ -18,7 +18,7 @@ import java.io.IOException;
  * @description TODO
  * @since 2023/2/25 11:26
  **/
-@WebFilter(filterName = "LoginCheckFilter",urlPatterns = "/*")
+@WebFilter(filterName = "LoginCheckFilter", urlPatterns = "/*")
 @Slf4j
 public class LoginCheckFilter implements Filter {
 
@@ -38,38 +38,41 @@ public class LoginCheckFilter implements Filter {
         String requestURI = request.getRequestURI();
         StringBuffer requestURL = request.getRequestURL();
 
-   /*     log.info("<--- remoteAddr == {}", remoteAddr);
-        log.info("pathInfo : {}", pathInfo);
-        log.info("requestURI : {}", requestURI);
-        log.info("requestURL : {}  --->", requestURL);*/
 
         // 定义 放行的路径
         String[] urls = new String[]{"/employee/login",
                 "/employee/logout",
                 "/backend/**",
-                "/front"  ,
-                "/common/**"
+                "/front/**",
+                "/common/**",
+                "/user/login",
+                "/user/sendMsg"
         };
 
         boolean check = check(urls, requestURI);
         // 不需要拦截,直接放行
         if (check) {
-//            log.info("本次请求 {} 不需要处理",requestURI);
             filterChain.doFilter(request, response);
             return;
         }
         // 需要拦截的页面进行 校验处理
         if (request.getSession().getAttribute("employee") != null) {
             Long id = (Long) request.getSession().getAttribute("employee");
-//            log.info("用户已登录,用户id为:{}", id);
 
             BaseContext.setCurrentId(id);
 
             filterChain.doFilter(request, response);
             return;
         }
+        if (request.getSession().getAttribute("user") != null) {
 
-//        log.info("用户未登录");
+            Long id = (Long) request.getSession().getAttribute("user");
+            BaseContext.setCurrentId(id);
+
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         response.getWriter().write(JSON.toJSONString(Result.error("not_login")));
 
     }
