@@ -1,6 +1,10 @@
 server:
   port: 8080
 spring:
+  #解决swagger报错问题
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
   application:
     #应用的名称，可选
     name: reggie_take_out

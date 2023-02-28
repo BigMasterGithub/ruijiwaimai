@@ -3,10 +3,7 @@ package com.itheima.reggie.common;
 import com.itheima.reggie.exception.CustomException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLIntegrityConstraintViolationException;
 
@@ -15,8 +12,7 @@ import java.sql.SQLIntegrityConstraintViolationException;
  * @description 全局处理异常
  * @since 2023/2/25 14:57
  **/
-@ControllerAdvice(annotations = {RestController.class, Controller.class})
-@ResponseBody
+@RestControllerAdvice // @RestControllerAdvice= @ControllerAdvice(annotations = {RestController.class, Controller.class}) + @ResponseBody
 @Slf4j
 public class GlobalExceptionHandler {
 

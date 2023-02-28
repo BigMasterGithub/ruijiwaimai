@@ -33,20 +33,32 @@ public class LoginCheckFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
 
 
-        String remoteAddr = request.getRemoteAddr();
-        String pathInfo = request.getPathInfo();
         String requestURI = request.getRequestURI();
-        StringBuffer requestURL = request.getRequestURL();
+        log.info("==============preHandle======start====================");
+        log.info("IP   ：" + request.getRemoteAddr());
+        log.info("URL  ：" + request.getRequestURL().toString());
+        log.info("HTTP Method   ：" + request.getMethod());
+        log.info("===============preHandle======End=====================");
 
 
         // 定义 放行的路径
-        String[] urls = new String[]{"/employee/login",
+        String[] urls = new String[]{
+                "/employee/login",
                 "/employee/logout",
                 "/backend/**",
                 "/front/**",
                 "/common/**",
                 "/user/login",
-                "/user/sendMsg"
+                "/user/sendMsg",
+                //放行 swagger 相关的请求url
+                "/doc.html",
+                "/webjars/**",
+                "/swagger-resources/**",
+
+                "/v2/**",
+
+                "/swagger-ui.html/**",
+                "/favicon.ico"
         };
 
         boolean check = check(urls, requestURI);
