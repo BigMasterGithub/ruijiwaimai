@@ -2,6 +2,7 @@ package com.itheima.reggie.controller;
 
 import com.baomidou.mybatisplus.extension.api.R;
 import com.itheima.reggie.common.Result;
+import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,28 +28,36 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/common")
 @Slf4j
+@Api(value = "文件处理(上传,下载) 接口")
 public class CommonController {
+
 
     @Value("${reggie.path}")
     String basePath;
 
+
+    @ApiOperation(value = "文件上传")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "file", value = "前端传来的文件", required = true)
+    })
     /**
      * 文件上传
      *
      * @param file
      * @return
      */
+
     @PostMapping("/upload")
-    public Result <String> upload(MultipartFile file) {
+    public Result<String> upload(MultipartFile file) {
         // file 是临时文件,存在服务器的 C:\Users\zhuang\AppData\Local\Temp\Tomcat*** 中
         log.info(file.toString());
 
-        //用户上传时的名字
+
         String originalFilename = file.getOriginalFilename();
         String suffix = originalFilename.substring(originalFilename.lastIndexOf("."));
-
+        // 服务器存储的文件名
         String fileName = UUID.randomUUID().toString() + suffix;
-//       创建目录
+
         File dir = new File(basePath);
         if (!dir.exists()) {
             dir.mkdirs();
@@ -70,12 +79,17 @@ public class CommonController {
      * @param name
      * @param response
      */
+    @ApiOperation(value = "文件下载")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "name", value = "服务器中的文件名", required = true),
+            @ApiImplicitParam(name = "response", value = "服务器中的文件名", required = true)
+    })
     @GetMapping("/download")
     public void download(String name, HttpServletResponse response) {
 
-/*
-        try (FileInputStream fileInputStream = new FileInputStream(new File(basePath + name)); ServletOutputStream outputStream = response.getOutputStream();) {
-
+        try (
+                FileInputStream fileInputStream = new FileInputStream(new File(basePath + name));
+                ServletOutputStream outputStream = response.getOutputStream();) {
 
             int len = 0;
             byte[] bytes = new byte[1024];
@@ -87,9 +101,10 @@ public class CommonController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-*/
+    }
+}
 
-        try {
+       /* try {
             FileInputStream fileInputStream = new FileInputStream(new File(basePath + name));
             ServletOutputStream outputStream = response.getOutputStream();
 
@@ -109,8 +124,6 @@ public class CommonController {
 
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
 
-    }
-}
 

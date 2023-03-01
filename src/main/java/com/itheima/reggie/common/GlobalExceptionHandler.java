@@ -17,7 +17,7 @@ import java.sql.SQLIntegrityConstraintViolationException;
 public class GlobalExceptionHandler {
 
     /**
-     * 处理 SQL 语句异常
+     *  SQL语句执行异常
      * @param exception
      * @return
      */
@@ -35,14 +35,13 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * 处理 分类删除 异常
+     * 分类删除 异常
      * @param exception
      * @return
      */
     @ExceptionHandler(CustomException.class)
     public Result<String> exceptionHandler(CustomException exception) {
         log.error(exception.getMessage());
-
         return Result.error(exception.getMessage());
     }
 

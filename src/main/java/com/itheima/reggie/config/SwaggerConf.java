@@ -14,17 +14,14 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * @author 张壮
- * @description Swagger配置类
+ * @description  Swagger配置类
  * @since 2023/2/28 10:17
  **/
 @Configuration
 
 public class SwaggerConf {
 
-
-//    打开网址 方式一 :http://127.0.0.1:8080/v2/api-docs
-//    方式二 : http://127.0.0.1:8080/swagger-ui.htm
-
+//    打开网址 方式一 :http://127.0.0.1:8080/doc.html
 
     @Bean
     public Docket docket() {

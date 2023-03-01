@@ -7,7 +7,7 @@ spring:
       matching-strategy: ant_path_matcher
   application:
     #应用的名称，可选
-    name: reggie_take_out
+    name: xxx 外卖
   # mysql 8 配置
   datasource:
     druid:
@@ -26,6 +26,7 @@ spring:
         min-idle: 1
         time-between-eviction-runs: 10s
     database: 1
+# mybatis-plus 配置
 mybatis-plus:
   configuration:
     #在映射实体或者属性时，将数据库中表名和字段名中的下划线去掉，按照驼峰命名法映射
@@ -37,7 +38,7 @@ mybatis-plus:
 
 
 
-# 额外参数
-# 定义文件上传路径
+#自定义参数
+#默认文件上传路径
 reggie:
   path: D:\img\

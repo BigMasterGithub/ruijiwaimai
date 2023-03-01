@@ -2,11 +2,10 @@ package com.itheima.reggie.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.itheima.reggie.common.BaseContext;
 import com.itheima.reggie.common.Result;
 import com.itheima.reggie.entity.Employee;
 import com.itheima.reggie.service.EmployeeService;
-import com.itheima.reggie.utils.AAAConstans;
+import com.itheima.reggie.utils.SystemConstans;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +13,6 @@ import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.time.LocalDateTime;
-import java.util.HashMap;
 
 
 @Slf4j
@@ -106,7 +103,7 @@ public class EmployeeController {
     @PostMapping
     public Result<String> addEmployee(HttpServletRequest request, @RequestBody Employee employee) {
         // 设置默认密码 :  123456
-        employee.setPassword(DigestUtils.md5DigestAsHex(AAAConstans.DEFAULT_PASS.getBytes()));
+        employee.setPassword(DigestUtils.md5DigestAsHex(SystemConstans.DEFAULT_PASS.getBytes()));
 
         employeeService.save(employee);
 

@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * @author 张壮
- * @description Mybatis 分页
+ * @description  Mybatis 分页用的拦截器
  * @since 2023/2/25 15:31
  **/
 @Configuration

@@ -41,15 +41,14 @@ public class WebMvcConfig implements WebMvcConfigurer {
     }
 
     /**
-     * 扩展MVC框架的消息转换器
-     *
+     * 扩展MVC框架的消息转换器     *
      * @param converters
      */
     @Override
     public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
         log.info("使用我自己配的转换器");
         MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-
+        // 使用自定义的 消息转换器
         converter.setObjectMapper(new JacksonObjectMapper());
 
         converters.add(0,converter);
