@@ -29,7 +29,7 @@ import static com.itheima.reggie.utils.RedisConstants.*;
 @RestController
 @RequestMapping("/user")
 @Slf4j
-@Api(tags = " 用户相关接口 ")
+//@Api(tags = " 用户相关接口 ")
 public class UserController {
 
     @Autowired
@@ -49,12 +49,12 @@ public class UserController {
 
     @PostMapping("/login")
 
-    @ApiOperation(value = "用户登录接口")
+//    @ApiOperation(value = "用户登录接口")
 
-    @ApiImplicitParams({
+ /*   @ApiImplicitParams({
             @ApiImplicitParam(name = "map", value = "前端传来用户登录的信息,包括手机号,验证码", required = true),
             @ApiImplicitParam(name = "session", value = "session", required = true)
-    })
+    })*/
     public Result<User> login(@RequestBody Map map, HttpSession session) {
         log.info(map.toString());
 
@@ -101,9 +101,8 @@ public class UserController {
      * @param user
      * @return
      */
-    @ApiOperation(value = "发送验证码接口")
+//    @ApiOperation(value = "发送验证码接口")
     @PostMapping("/sendMsg")
-
     public Result<String> sendMsg(@RequestBody User user, HttpSession session) {
         //获取手机号
         String phone = user.getPhone();

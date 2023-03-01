@@ -35,7 +35,9 @@ mybatis-plus:
   global-config:
     db-config:
       id-type: ASSIGN_ID
-
+#swagger增强
+knife4j:
+  enable: true
 #日志配置
 
 

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
@@ -28,7 +29,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/common")
 @Slf4j
-@Api(value = "文件处理(上传,下载) 接口")
+@Api(tags = "文件处理(上传,下载) 接口")
 public class CommonController {
 
 
@@ -36,16 +37,15 @@ public class CommonController {
     String basePath;
 
 
-    @ApiOperation(value = "文件上传")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "file", value = "前端传来的文件", required = true)
-    })
+
+
     /**
      * 文件上传
      *
      * @param file
      * @return
      */
+    @ApiOperation(value = "文件上传")
 
     @PostMapping("/upload")
     public Result<String> upload(MultipartFile file) {
@@ -80,12 +80,9 @@ public class CommonController {
      * @param response
      */
     @ApiOperation(value = "文件下载")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "name", value = "服务器中的文件名", required = true),
-            @ApiImplicitParam(name = "response", value = "服务器中的文件名", required = true)
-    })
+
     @GetMapping("/download")
-    public void download(String name, HttpServletResponse response) {
+    public void download(String name,@ApiIgnore HttpServletResponse response) {
 
         try (
                 FileInputStream fileInputStream = new FileInputStream(new File(basePath + name));
@@ -103,27 +100,4 @@ public class CommonController {
         }
     }
 }
-
-       /* try {
-            FileInputStream fileInputStream = new FileInputStream(new File(basePath + name));
-            ServletOutputStream outputStream = response.getOutputStream();
-
-            response.setContentType("image/jpeg");
-
-            int len = 0;
-            byte[] bytes = new byte[1024];
-            while ((len = fileInputStream.read(bytes)) != -1) {
-                outputStream.write(bytes, 0, len);
-                outputStream.flush();
-            }
-
-
-            fileInputStream.close();
-            outputStream.close();
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
-
 

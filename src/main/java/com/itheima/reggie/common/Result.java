@@ -23,12 +23,7 @@ public class Result<T> {
     @ApiModelProperty(value = "动态数据")
     private Map map = new HashMap(); //动态数据
 
-    @ApiOperation(value = "成功返回给前端数据接口")
 
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "object", value = "返回前端的数据", required = true)
-
-    })
     public static <T> Result<T> success(T object) {
         Result<T> r = new Result<T>();
         r.data = object;
@@ -37,11 +32,7 @@ public class Result<T> {
     }
 
 
-    @ApiOperation(value = "未成功返回给前端数据接口")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "msg", value = "错误原因", required = true)
 
-    })
     public static <T> Result<T> error(String msg) {
         Result r = new Result();
         r.msg = msg;
@@ -49,11 +40,7 @@ public class Result<T> {
         return r;
     }
 
-    @ApiOperation(value = "添加 动态数据")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "key", value = "key", required = true),
-            @ApiImplicitParam(name = "value", value = "value", required = true)
-    })
+
     public Result<T> add(String key, Object value) {
         this.map.put(key, value);
         return this;
