@@ -37,7 +37,7 @@ public class Setmeal implements Serializable {
 
 
     //编码
-    private String code;
+   /* private String code;*/
 
 
     //描述信息

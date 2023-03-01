@@ -36,6 +36,8 @@ mybatis-plus:
     db-config:
       id-type: ASSIGN_ID
 
+#日志配置
+
 
 
 #自定义参数
