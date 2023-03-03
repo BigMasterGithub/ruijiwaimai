@@ -39,7 +39,15 @@ mybatis-plus:
 knife4j:
   enable: true
 #日志配置
+#MP日志配置
+#SpringBoot 日志配置 默认集成logback
+logging:
+  level:
+    com.itheima.reggie: debug
+  pattern:
+    console: "%d{HH:mm:ss.SSS} %contextName [%thread] %-5level %logger{36} - %msg%n"
 
+#lombok配置
 
 
 #自定义参数
