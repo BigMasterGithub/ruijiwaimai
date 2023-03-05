@@ -48,9 +48,10 @@ knife4j:
 #日志配置
 
 
-#SpringBoot 日志配置 默认集成logback
+#SpringBoot 日志配置 默认集成logback,默认为 info 级别
 logging:
   level:
+#    root: debug
     com.itheima.reggie: debug
   pattern:
     console: "%d{HH:mm:ss.SSS} %contextName [%thread] %-5level %logger{36} - %msg%n"

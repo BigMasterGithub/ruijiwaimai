@@ -73,7 +73,7 @@ public class SetmealController {
         queryWrapper.like(name != null, Setmeal::getName, name);
         //添加排序条件，根据更新时间降序排列
         queryWrapper.orderByDesc(Setmeal::getUpdateTime);
-
+        queryWrapper.eq(Setmeal::getStatus,1);
         setmealService.page(pageInfo, queryWrapper);
 
         //对象拷贝
