@@ -26,20 +26,28 @@ spring:
         min-idle: 1
         time-between-eviction-runs: 10s
     database: 1
+#spring cache 配置
+  cache:
+    redis:
+      time-to-live: 180000 #默认单位 ms
 # mybatis-plus 配置
 mybatis-plus:
   configuration:
     #在映射实体或者属性时，将数据库中表名和字段名中的下划线去掉，按照驼峰命名法映射
     map-underscore-to-camel-case: true
+    #MP日志配置
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   global-config:
     db-config:
-      id-type: ASSIGN_ID
+      id-type: ASSIGN_ID  #ASSIGN_ID 基于雪花算法的策略生成数据ID,AUTO为使用数据库的自增策略
+#      table-prefix: t_ 配置MyBatis-Plus 操作表的默认前缀
+
 #swagger增强
 knife4j:
   enable: true
 #日志配置
-#MP日志配置
+
+
 #SpringBoot 日志配置 默认集成logback
 logging:
   level:
@@ -47,7 +55,7 @@ logging:
   pattern:
     console: "%d{HH:mm:ss.SSS} %contextName [%thread] %-5level %logger{36} - %msg%n"
 
-#lombok配置
+#lombok日志配置
 
 
 #自定义参数

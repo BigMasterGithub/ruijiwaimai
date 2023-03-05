@@ -3,6 +3,7 @@ package com.itheima.reggie.common;
 import io.swagger.annotations.*;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,7 +14,7 @@ import java.util.Map;
  */
 @Data
 @ApiModel(value = "返回结果")
-public class Result<T> {
+public class Result<T> implements Serializable {
     @ApiModelProperty(value = "编码：1成功，0和其它数字为失败")
     private Integer code; //编码：1成功，0和其它数字为失败
     @ApiModelProperty(value = "错误信息")
@@ -30,7 +31,6 @@ public class Result<T> {
         r.code = 1;
         return r;
     }
-
 
 
     public static <T> Result<T> error(String msg) {

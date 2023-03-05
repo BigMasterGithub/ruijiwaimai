@@ -34,11 +34,13 @@ public class LoginCheckFilter implements Filter {
 
 
         String requestURI = request.getRequestURI();
+/*
         log.info("==============preHandle======start====================");
         log.info("IP   ：" + request.getRemoteAddr());
         log.info("URL  ：" + request.getRequestURL().toString());
         log.info("HTTP Method   ：" + request.getMethod());
         log.info("===============preHandle======End=====================");
+*/
 
 
         // 定义 放行的路径
